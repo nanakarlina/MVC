@@ -5,17 +5,27 @@
  */
 package pack.view;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Iitutsa
  */
 public class login extends javax.swing.JFrame {
 
+    private String user;
+ 
     /**
      * Creates new form login
      */
     public login() {
         initComponents();
+        
     }
 
     /**
@@ -27,21 +37,95 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtpass = new javax.swing.JTextField();
+        txtnama = new javax.swing.JTextField();
+        SignIn = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
+        SignUp = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        jLabel1.setText("password");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(130, 110, 140, 30);
 
-        pack();
+        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        jLabel2.setText("Username");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(130, 20, 140, 30);
+
+        txtpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpassActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtpass);
+        txtpass.setBounds(120, 160, 150, 30);
+
+        txtnama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnamaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtnama);
+        txtnama.setBounds(120, 60, 150, 30);
+
+        SignIn.setText("Sign In ");
+        SignIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SignInActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SignIn);
+        SignIn.setBounds(110, 210, 170, 30);
+
+        exit.setText("Exit");
+        getContentPane().add(exit);
+        exit.setBounds(200, 250, 90, 30);
+
+        SignUp.setText("Sign Up");
+        getContentPane().add(SignUp);
+        SignUp.setBounds(100, 250, 90, 30);
+
+        setBounds(0, 0, 416, 339);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpassActionPerformed
+
+    private void txtnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnamaActionPerformed
+
+    private void SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInActionPerformed
+      Connection connection;
+ PreparedStatement ps;
+ try {
+ connection =DriverManager.getConnection("jdbc:mysql://localhost/toko?zeroDateTimeBehavior=convertToNull", "root", "");
+ ps = connection.prepareStatement("SELECT * FROM`tb_akun` WHERE `username` = ? AND `password` = ?");
+ ps.setString(1, txtnama.getText());
+ ps.setString(2, txtpass.getText());
+ ResultSet result =ps.executeQuery();
+ if(result.next()){
+ new home().show();
+ user = txtnama.getText();//perlu deklarasi user diclass utama.
+ this.dispose();
+ }
+ else{
+ JOptionPane.showMessageDialog(rootPane,"Salah!");
+ txtpass.setText("");
+ txtnama.requestFocus();
+ }
+ }catch (SQLException ex){
+ JOptionPane.showMessageDialog(rootPane,"Gagal!");
+ }
+
+    }//GEN-LAST:event_SignInActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +163,12 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SignIn;
+    private javax.swing.JButton SignUp;
+    private javax.swing.JButton exit;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField txtnama;
+    private javax.swing.JTextField txtpass;
     // End of variables declaration//GEN-END:variables
 }
