@@ -50,8 +50,7 @@ public controllerToko(home hm){
  }else{
  String kode = (hm.getTxtKode().getText());
  impToko.HapusData(kode);
- JOptionPane.showMessageDialog(hm, "Data berhasil
-dihapus");
+ JOptionPane.showMessageDialog(hm, "Data berhasil dihapus");
  }
  }
  //menyimpan data
@@ -86,8 +85,7 @@ toko.setkategori(hm.getCbKategori().getSelectedItem().toString());
  hm.getTxtKode().setText(lt.get(row).getkode().toString());
  hm.getTxtNama().setText(lt.get(row).getnama().toString());
 
-hm.getCbKategori().setSelectedItem(lt.get(row).getkategori().toStrin
-g());
+hm.getCbKategori().setSelectedItem(lt.get(row).getkategori().toString());
 
 hm.getCbJenis().setSelectedItem(lt.get(row).getjenis().toString());
  hm.getTxtHarga().setText(lt.get(row).getharga().toString());
@@ -95,14 +93,13 @@ hm.getCbJenis().setSelectedItem(lt.get(row).getjenis().toString());
 
  }
  public void CariKategori(){
+     if
 (hm.getCbCariKategori().getSelectedItem().toString().isEmpty()){
 
-impToko.getCariKategori((String)hm.getCbCariKategori().getSelectedIt
-em());
+impToko.getCariKategori((String)hm.getCbCariKategori().getSelectedItem());
  isiTableCariKategori();
  }else{
- JOptionPane.showMessageDialog(hm, "Silahkan Pilih
-Kategori");
+ JOptionPane.showMessageDialog(hm, "Silahkan Pilih Kategori");
  }
  }
  private void isiTableCariKategori() {
